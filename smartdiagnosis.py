@@ -22,7 +22,7 @@ except ImportError as e:
     
     import subprocess
     try:
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "tensorflow==2.13.0"])
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "tensorflow==2.15.0"])
         import tensorflow as tf
         st.success("TensorFlow installed and imported successfully!")
     except Exception as install_error:
@@ -31,12 +31,11 @@ except ImportError as e:
         {str(install_error)}
         
         Please check your requirements.txt file contains:
-        tensorflow==2.13.0
-        tensorflow-cpu==2.13.0
-        numpy==1.24.3
-        protobuf==3.20.0
-        keras==2.13.1
-        h5py==3.9.0
+        tensorflow==2.15.0
+        numpy>=1.24.3
+        protobuf>=3.20.0
+        keras>=2.15.0
+        h5py>=3.9.0
         """)
         st.stop()
 
