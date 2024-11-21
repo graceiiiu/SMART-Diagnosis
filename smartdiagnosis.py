@@ -1,7 +1,14 @@
 import streamlit as st
-import tensorflow as tf
 import numpy as np
 import os
+
+# Add TensorFlow import with error handling
+try:
+    import tensorflow as tf
+    st.success("TensorFlow successfully loaded!")
+except ImportError:
+    st.error("Failed to import TensorFlow. Please check requirements.txt")
+    st.stop()
 
 st.title("COPD Detection System")
 st.write("Upload a breathing sound recording to check for COPD indicators.")
