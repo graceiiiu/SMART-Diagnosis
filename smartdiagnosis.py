@@ -1,24 +1,8 @@
-import streamlit as st
-from fastapi import FastAPI, Request
+mport streamlit as st
 import tensorflow as tf
-
-app = FastAPI()
-
-@app.post("/predict")
-async def predict(request: Request):
-    data = await request.json()
-    
-    # Process the audio file
-    audio_file = data['audio_file']
-    
-    # Make prediction using your model
-    prediction = your_model.predict(processed_audio)
-    
-    return {"prediction": str(prediction)}
-
-import streamlit as st
 import numpy as np
 import os
+
 st.title("COPD Detection System")
 st.write("Upload a breathing sound recording to check for COPD indicators.")
 
@@ -31,12 +15,16 @@ if audio_file is not None:
     if st.button("Analyze Audio"):
         st.info("Model loading... This might take a few minutes.")
         
-        # Placeholder for model prediction
-        import random
-        confidence = random.random() * 100
-        diagnosis = "COPD" if confidence > 50 else "NOT COPD"
-        
-        st.subheader("Results:")
-        st.write(f"Diagnosis: {diagnosis}")
-        st.write(f"Confidence: {confidence:.2f}%")
-        st.progress(confidence / 100)
+        try:
+            # Your model loading and prediction code here
+            # For now, using placeholder prediction
+            import random
+            confidence = random.random() * 100
+            diagnosis = "COPD" if confidence > 50 else "NOT COPD"
+            
+            st.subheader("Results:")
+            st.write(f"Diagnosis: {diagnosis}")
+            st.write(f"Confidence: {confidence:.2f}%")
+            st.progress(confidence / 100)
+        except Exception as e:
+            st.error(f"An error occurred during analysis: {str(e)}")
