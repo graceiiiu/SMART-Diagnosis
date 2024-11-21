@@ -1,9 +1,15 @@
-import os
+mport os
 import numpy as np
-import tensorflow as tf
 import streamlit as st
-from tensorflow import keras
-from tensorflow.keras import layers
+
+# Wrap TensorFlow import in try-except to provide better error message
+try:
+    import tensorflow as tf
+    from tensorflow import keras
+    from tensorflow.keras import layers
+except ImportError:
+    st.error("Failed to import TensorFlow. Please make sure it's installed correctly.")
+    st.stop()
 
 # Constants
 SAMPLE_RATE = 16000
