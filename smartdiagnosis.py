@@ -23,3 +23,14 @@ if audio_file is not None:
         st.write(f"Diagnosis: {diagnosis}")
         st.write(f"Confidence: {confidence:.2f}%")
         st.progress(confidence / 100)
+# Inject custom CSS to change the font
+st.markdown(
+    """
+    <style>
+    * {
+        font-family: "Times New Roman", Times, serif;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
