@@ -46,7 +46,7 @@ from pydub import AudioSegment
 
 
 
-!apt-get install ffmpeg
+brew install ffmpeg
 
 fixed_length = 80000  # 5 seconds at 16 kHz
 def load_and_pad_audio(file_path):
