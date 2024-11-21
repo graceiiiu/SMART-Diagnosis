@@ -1,23 +1,44 @@
 import streamlit as st
 import numpy as np
 import os
+import sys
 
-# Add TensorFlow import with detailed error handling
+st.write(f"Python version: {sys.version}")
+
 try:
     import tensorflow as tf
-    st.success(f"TensorFlow successfully loaded! Version: {tf.__version__}")
+    st.success(f"""
+    TensorFlow successfully loaded!
+    Version: {tf.__version__}
+    GPU Available: {tf.test.is_built_with_cuda()}
+    """)
 except ImportError as e:
     st.error(f"""
     Failed to import TensorFlow. Error details:
     {str(e)}
     
-    Please check if TensorFlow is installed correctly.
-    Current requirements:
-    - tensorflow-cpu==2.15.0
-    - numpy>=1.24.3
-    - protobuf>=3.20.0
+    Attempting to install TensorFlow...
     """)
-    st.stop()
+    
+    import subprocess
+    try:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "tensorflow==2.13.0"])
+        import tensorflow as tf
+        st.success("TensorFlow installed and imported successfully!")
+    except Exception as install_error:
+        st.error(f"""
+        Failed to install TensorFlow. Error details:
+        {str(install_error)}
+        
+        Please check your requirements.txt file contains:
+        tensorflow==2.13.0
+        tensorflow-cpu==2.13.0
+        numpy==1.24.3
+        protobuf==3.20.0
+        keras==2.13.1
+        h5py==3.9.0
+        """)
+        st.stop()
 
 st.title("COPD Detection System")
 st.write("Upload a breathing sound recording to check for COPD indicators.")
