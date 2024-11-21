@@ -1,115 +1,41 @@
-smart-diagnosis/
-├── README.md
-├── requirements.txt
-├── src/
-│   ├── __init__.py
-│   └── smartdiagnosis.py
-├── models/
-│   └── .gitkeep
-├── data/
-│   ├── training_set/
-│   │   ├── COPD/
-│   │   └── NOT_COPD/
-│   └── testing_set/
-│       ├── COPD/
-│       └── NOT_COPD/
-└── .gitignore
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-env/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
+import os
+import numpy as np
+import tensorflow as tf
+import streamlit as st
+from tensorflow import keras
+from tensorflow.keras import layers
 
-# Virtual Environment
-venv/
-ENV/
+# Constants
+SAMPLE_RATE = 16000
+DURATION = 5  # seconds
+INPUT_SHAPE = (SAMPLE_RATE * DURATION,)  # 5 seconds of audio at 16kHz
 
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
+def load_and_preprocess_audio(file_path):
+    # Add your audio preprocessing code here
+    pass
 
-# Model files
-*.keras
-*.h5
+def build_model():
+    model = keras.Sequential([
+        layers.Input(shape=INPUT_SHAPE),
+        layers.Reshape((-1, 1)),
+        layers.Conv1D(32, 3, activation='relu'),
+        layers.MaxPooling1D(2),
+        layers.Conv1D(64, 3, activation='relu'),
+        layers.MaxPooling1D(2),
+        layers.Flatten(),
+        layers.Dense(64, activation='relu'),
+        layers.Dense(1, activation='sigmoid')
+    ])
+    return model
 
-# Audio files
-*.wav
-*.mp3
+def main():
+    st.title("COPD Detection from Breathing Sounds")
+    
+    uploaded_file = st.file_uploader("Upload a breathing sound recording", type=['wav'])
+    
+    if uploaded_file is not None:
+        # Add your prediction code here
+        pass
 
-# Jupyter Notebook
-.ipynb_checkpoints
-# Smart COPD Diagnosis
-
-An AI-powered tool for detecting COPD (Chronic Obstructive Pulmonary Disease) from breathing sound recordings.
-
-## Features
-
-- Audio preprocessing and analysis
-- Deep learning model for COPD detection
-- Real-time prediction capabilities
-- Web interface for easy use
-
-## Installation
-
-1. Clone the repository:
-# Remove Google Colab specific code
-# from google.colab import drive
-# drive.mount('/content/drive')
-
-# Update paths to be relative to project root
-COPD_FOLDER = '../data/training_set/COPD/'
-NOT_COPD_FOLDER = '../data/training_set/NOT_COPD/
-# This can be empty or contain package-level imports
-
-## Usage
-
-1. Upload an audio file (.wav format)
-2. Click "Analyze" to get the prediction
-
-## Model Architecture
-
-The system uses a CNN-based architecture:
-- Input: Raw audio waveform (5 seconds, 16kHz)
-- Multiple convolutional layers for feature extraction
-- Dense layers for classification
-- Output: Binary classification (COPD vs. NOT COPD)
-
-## Dataset
-
-The model was trained on a dataset of breathing sound recordings:
-- COPD cases: X samples
-- Non-COPD cases: Y samples
-- Validation split: 20%
-
-## Performance
-
-- Precision: X%
-- Recall: Y%
-- F1-Score: Z%
-
-## License
-
-[Your chosen license]
-
-## Contributors
-
-[Your name]
+if __name__ == "__main__":
+    main()
