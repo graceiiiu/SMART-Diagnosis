@@ -101,7 +101,11 @@ for audio, label in dataset.take(2):
     print("Audio shape:", audio.shape)
     print("Label:", label.numpy())
 
-!ls /content/drive/MyDrive/training_set/NOT_COPD/
+print("Contents of NOT_COPD directory:")
+try:
+    print(os.listdir('/content/drive/MyDrive/training_set/NOT_COPD/'))
+except Exception as e:
+    print(f"Error listing directory: {e}")
 
 # Create datasets containing the .wav files in each directory
 COPD_dataset = tf.data.Dataset.list_files(COPD_files)  # Load all .wav files in COPD folder
@@ -691,7 +695,20 @@ if audio_file is not None:
     ''')
 
 # Now let's test the app locally
-!streamlit run app.py & npx localtunnel --port 8501
+# Replace !streamlit run app.py & npx localtunnel --port 8501 with Python equivalent
+# Note: This would typically be run from the command line, not within Python
+# If you need to run it from Python, you can use:
+try:
+    # Start streamlit
+    streamlit_process = subprocess.Popen(["streamlit", "run", "app.py"])
+    # Start localtunnel
+    tunnel_process = subprocess.Popen(["npx", "localtunnel", "--port", "8501"])
+    
+    # Keep the processes running
+    streamlit_process.wait()
+    tunnel_process.wait()
+except Exception as e:
+    print(f"Error starting servers: {e}")
 
 with open('requirements.txt', 'w') as f:
     f.write('''
