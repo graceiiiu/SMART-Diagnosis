@@ -39,8 +39,13 @@ NOT_COPD_files = [os.path.join(NOT_COPD_FOLDER, f) for f in os.listdir(NOT_COPD_
 print("COPD Files:", COPD_files)
 print("Non-COPD Files:", NOT_COPD_files)
 
-!pip install soundfile
-!pip install pydub
+import tensorflow as tf
+import tensorflow_io as tfio
+import soundfile as sf
+from pydub import AudioSegment
+
+
+
 !apt-get install ffmpeg
 
 fixed_length = 80000  # 5 seconds at 16 kHz
