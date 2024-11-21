@@ -2,12 +2,21 @@ import streamlit as st
 import numpy as np
 import os
 
-# Add TensorFlow import with error handling
+# Add TensorFlow import with detailed error handling
 try:
     import tensorflow as tf
-    st.success("TensorFlow successfully loaded!")
-except ImportError:
-    st.error("Failed to import TensorFlow. Please check requirements.txt")
+    st.success(f"TensorFlow successfully loaded! Version: {tf.__version__}")
+except ImportError as e:
+    st.error(f"""
+    Failed to import TensorFlow. Error details:
+    {str(e)}
+    
+    Please check if TensorFlow is installed correctly.
+    Current requirements:
+    - tensorflow-cpu==2.15.0
+    - numpy>=1.24.3
+    - protobuf>=3.20.0
+    """)
     st.stop()
 
 st.title("COPD Detection System")
